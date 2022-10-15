@@ -3,15 +3,16 @@ import ShoppingBagRounded from "@mui/icons-material/ShoppingBagRounded"
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { motion } from "framer-motion"
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate,useLocation } from 'react-router-dom'
 import avatar from '../assets/avatar.png'
 import logo from "../assets/ri.png"
 import { useGlobalContext } from "../context"
 import { app } from "../firebase.config"
-const Navbar = () => {
+const Navbar = ({totalItems}) => {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
+  const location =useLocation();
 const{user,setUser,isMenu,setIsMenu}=useGlobalContext()
 const login =async()=>{
   if (!user) {
@@ -47,14 +48,16 @@ const logout =()=>{
           </div>
           
           <div className="flex relative text-center items-center gap-4">
+            {location.pathname!=="/cart"&&
             <div
-                className="relative flex items-center justify-center"
-              >
-                <ShoppingBagRounded className="text-orange-400 text-2xl cursor-pointer hover:scale-110 hover:text-activeText" />
-                  <div className=" absolute -top-2 -right-2 w-5 h-5 rounded-full bg-activeText flex items-center justify-center bg-orange-400">
-                    <p className="text-sm text-white font-semibold">0</p>
-                  </div>
-            </div>
+            className="relative flex items-center justify-center"
+          >
+            <Link to="/cart"><ShoppingBagRounded className="text-orange-400 text-2xl cursor-pointer hover:scale-110 hover:text-activeText" /></Link>
+              <div className=" absolute -top-2 -right-2 w-5 h-5 rounded-full bg-activeText flex items-center justify-center bg-orange-400">
+                <p className="text-sm text-white font-semibold">{totalItems}</p>
+              </div>
+        </div>
+            }
                 <motion.img
                   whileTap={{ scale: 0.6 }}
                   src={user ? user.photoURL : avatar}

@@ -1,6 +1,6 @@
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
-
+import {Link} from "react-router-dom"
 import React, { useState } from "react";
 import { ApiSlides } from "../utils/SliderApi";
 import "./Slider.css";
@@ -63,7 +63,7 @@ function stopSlide() {
                 <div className="description flex flex-col flex-1 place-items-start justify-center ml-11">
                   <h2 className="text-[55px] text-white uppercase">{slide.content.h2}</h2>
                   <p className=" text-[30px] text-xs text-gray-300">{slide.content.p}</p>
-                  <button className="py-2 px-4 bg-transparent border-y-2 my-4 rounded-sm text-gray-300 uppercase hover:bg-gray-300 hover:text-gray-900 ">Shop Now</button>
+                  <Link to="/products"><button className="py-2 px-4 bg-transparent border-y-2 my-4 rounded-sm text-gray-300 uppercase hover:bg-gray-300 hover:text-gray-900 ">Shop Now</button></Link>
                 </div>
               </div>
             </div>
