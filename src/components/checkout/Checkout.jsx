@@ -5,23 +5,21 @@ import Confirmation from './Confirmation';
 import {commerce} from '../../lib/commerce'
 import { Paper,Stepper,Step,StepLabel,Typography,CircularProgress,Divider } from '@mui/material'
 const steps=["Shipping Address","Payment Details"];
-const Checkout = () => {
+const Checkout = ({cart}) => {
     const [activeStep,setActiveStep]=useState(0)
-    const [checkoutToke,setCheckoutToken]=useState(null)
+    const [checkoutToken,setCheckoutToken]=useState(null)
     useEffect(()=>{
             const generateToken=async()=>{
             try {
                 const token= await commerce.checkout.generateToken(cart.id,{type:"cart"})
-                console.log(token)
-                setCheckoutToken(token)
-               
+                setCheckoutToken(token)       
             } catch (error) {
                 
             }
         }
         generateToken()
-    },[])
-    const Form =()=>activeStep===0?<AddressForm/>:<PaymentForm/>
+    },[cart])
+    const Form =()=>activeStep===0?<AddressForm checkoutToken={checkoutToken}/>:<PaymentForm/>
   return (
     <>
      <div className='ml-[15%] mr-[15%]'>
@@ -35,7 +33,7 @@ const Checkout = () => {
                         </Step>
                     ))}
                 </Stepper>
-                {activeStep===steps.length?<Confirmation/>:<Form/>}
+                {activeStep===steps.length?<Confirmation/>:checkoutToken && <Form/>}
             </Paper>
         </main>
      </div>

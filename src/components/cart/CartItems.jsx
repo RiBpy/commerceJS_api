@@ -3,8 +3,8 @@ import { Card ,Typography} from '@mui/material';
 const CartItems = ({item,handleRemoveItem,handleCartQuantity}) => {
   return (
     <div className=''>
-        <Card item xs={12} sm={4} key={item.id} className="px-8">
-            <div className='px-4'>
+        <Card item xs={12} sm={4} key={item.id} className="px-4 sm:px-8">
+            <div className='sm:px-2'>
                 <img src={item.image.url} alt={item.name} className="w-[10%] h-[10%]" />
                 <div className='flex justify-between'>
                 <h5>{item.name}</h5>
